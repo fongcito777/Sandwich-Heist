@@ -8,6 +8,11 @@ TagManager:
   - Ketchup
   - Start
   - Tomato
+  - End
+  - Floor
+  - Police
+  - UI
+  - EndUI
   layers:
   - Default
   - TransparentFX

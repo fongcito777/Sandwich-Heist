@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Move : MonoBehaviour
@@ -18,6 +19,8 @@ public class Move : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _transform = GetComponent<Transform>();
         _animator = GetComponent<Animator>();
+        
+        
     }
 
     private void Update()
@@ -70,5 +73,10 @@ public class Move : MonoBehaviour
         Vector3 scale = _transform.localScale;
         scale.x *= -1;
         _transform.localScale = scale;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        throw new NotImplementedException();
     }
 }
