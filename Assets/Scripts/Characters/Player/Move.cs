@@ -9,6 +9,7 @@ public class Move : MonoBehaviour
     private Vector2 _movement;
     private Transform _transform;
     private bool _moved;
+    private Transform _movePoint;
     
     // Animations
     private Animator _animator;
@@ -19,47 +20,43 @@ public class Move : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _transform = GetComponent<Transform>();
         _animator = GetComponent<Animator>();
-        
-        
     }
 
     private void Update()
     {
-        if (Input.anyKeyDown)
+        if (!Input.anyKeyDown) return;
+        _moved = true;
+            
+        var horizontal = Input.GetAxisRaw("Horizontal");
+        var vertical = Input.GetAxisRaw("Vertical");
+            
+        _animator.SetFloat("Horizontal", Mathf.Abs(horizontal));
+        _animator.SetFloat("Vertical", vertical);
+        _animator.SetFloat("Speed", speed);
+
+        if (!_moved || (!(Mathf.Abs(transform.position.x % 1) > 0.01f) &&
+                        !(Mathf.Abs(transform.position.y % 1) > 0.01f))) return;
+        
+        if (horizontal != 0)
         {
-            _moved = true;
-            
-            var horizontal = Input.GetAxisRaw("Horizontal");
-            var vertical = Input.GetAxisRaw("Vertical");
-            
-            _animator.SetFloat("Horizontal", Mathf.Abs(horizontal));
-            _animator.SetFloat("Vertical", vertical);
+            _movement.x = horizontal;
+            _movement.y = 0;
 
-            if (_moved && (Mathf.Abs(transform.position.x%1) > 0.01f || Mathf.Abs(transform.position.y%1) > 0.01f))
+            switch (horizontal)
             {
-                if (horizontal != 0)
-                {
-                    _movement.x = horizontal;
-                    _movement.y = 0;
-
-                    // Flip the character based on the direction
-                    if (horizontal > 0 && !_facingRight)
-                    {
-                        Flip();
-                    }
-                    else if (horizontal < 0 && _facingRight)
-                    {
-                        Flip();
-                    }
-                }
-                else if (vertical != 0)
-                {
-                    _movement.x = 0;
-                    _movement.y = vertical;
-                }
-                _moved = false;
+                // Flip the character based on the direction
+                case > 0 when !_facingRight:
+                case < 0 when _facingRight:
+                    Flip();
+                    break;
             }
         }
+        else if (vertical != 0)
+        {
+            _movement.x = 0;
+            _movement.y = vertical;
+        }
+        _moved = false;
     }
 
     private void FixedUpdate()
@@ -70,7 +67,7 @@ public class Move : MonoBehaviour
     private void Flip()
     {
         _facingRight = !_facingRight;
-        Vector3 scale = _transform.localScale;
+        var scale = _transform.localScale;
         scale.x *= -1;
         _transform.localScale = scale;
     }
