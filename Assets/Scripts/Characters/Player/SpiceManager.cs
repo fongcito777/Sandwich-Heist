@@ -64,7 +64,7 @@ public class SpiceManager : MonoBehaviour
     private void Update()
     {
         // UI
-        _ketchupText.text = "Ketchup: " + ketchupCount.ToString();
+        _ketchupText.text = "KETCHUP: " + ketchupCount.ToString();
         
         // Get the current tile position
         var currentTilePosition = targetTilemap.WorldToCell(transform.position);

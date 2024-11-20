@@ -368,8 +368,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 401}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 0, y: 330.5873}
+  m_SizeDelta: {x: 1457.591, y: 190.826}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &258297119
 MonoBehaviour:
@@ -391,10 +391,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Confirm Exit
+  m_text: CONFIRM EXIT
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 74c8c70012766e646ba8420a7269b826, type: 2}
+  m_sharedMaterial: {fileID: 6611559517359871081, guid: 74c8c70012766e646ba8420a7269b826, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -454,7 +454,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -515.6609, y: 0, z: -518.44666, w: -170.02869}
+  m_margin: {x: 3.8124847, y: 0, z: -2.0479393, w: -0.8507157}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -480,6 +480,7 @@ GameObject:
   - component: {fileID: 337723873}
   - component: {fileID: 337723872}
   - component: {fileID: 337723871}
+  - component: {fileID: 337723874}
   m_Layer: 5
   m_Name: Cancel_btn
   m_TagString: Untagged
@@ -550,7 +551,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 337723872}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 337723874}
+        m_TargetAssemblyTypeName: ButtonSFX, Assembly-CSharp
+        m_MethodName: PlayClickSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &337723872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -589,6 +602,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337723869}
   m_CullTransparentMesh: 1
+--- !u!114 &337723874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337723869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d65459365aac9d4b8635522ff626dd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonClickClip: {fileID: 8300000, guid: 7f0d67b0e12145b46be9d67d1203f8fc, type: 3}
 --- !u!1 &497577789
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,7 +765,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 590313232}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 497577792}
+        m_TargetAssemblyTypeName: SceneTransition, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 2.2_Settings
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 590313234}
+        m_TargetAssemblyTypeName: ButtonSFX, Assembly-CSharp
+        m_MethodName: PlayClickSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &590313232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -787,26 +837,55 @@ MonoBehaviour:
   m_GameObject: {fileID: 590313229}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d65459365aac9d4b8635522ff626dd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 497577792}
-          m_TargetAssemblyTypeName: SceneTransition, Assembly-CSharp
-          m_MethodName: LoadScene
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 2.2_Settings
-            m_BoolArgument: 0
-          m_CallState: 2
+  buttonClickClip: {fileID: 8300000, guid: 7f0d67b0e12145b46be9d67d1203f8fc, type: 3}
+--- !u!1 &766386750
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 766386752}
+  - component: {fileID: 766386751}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &766386751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766386750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 113d7d53595425f459b28608f10a505e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuMusic: {fileID: 8300000, guid: 54eb3a3b1b639834fbb1615b74fb3378, type: 3}
+--- !u!4 &766386752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766386750}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 658.5658, y: 284.96695, z: -10.52757}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &960819061
 GameObject:
   m_ObjectHideFlags: 0
@@ -864,10 +943,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Cancel
+  m_text: CANCEL
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 74c8c70012766e646ba8420a7269b826, type: 2}
+  m_sharedMaterial: {fileID: 6611559517359871081, guid: 74c8c70012766e646ba8420a7269b826, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1303,7 +1382,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1203797713}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 497577792}
+        m_TargetAssemblyTypeName: SceneTransition, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 2.3_Credits
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1203797715}
+        m_TargetAssemblyTypeName: ButtonSFX, Assembly-CSharp
+        m_MethodName: PlayClickSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1203797713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1351,26 +1454,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1203797710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d65459365aac9d4b8635522ff626dd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 497577792}
-          m_TargetAssemblyTypeName: SceneTransition, Assembly-CSharp
-          m_MethodName: LoadScene
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 2.3_Credits
-            m_BoolArgument: 0
-          m_CallState: 2
+  buttonClickClip: {fileID: 8300000, guid: 7f0d67b0e12145b46be9d67d1203f8fc, type: 3}
 --- !u!1 &1418094109
 GameObject:
   m_ObjectHideFlags: 0
@@ -1428,10 +1515,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Okay
+  m_text: OKAY
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 74c8c70012766e646ba8420a7269b826, type: 2}
+  m_sharedMaterial: {fileID: 6611559517359871081, guid: 74c8c70012766e646ba8420a7269b826, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1517,6 +1604,7 @@ GameObject:
   - component: {fileID: 1714622262}
   - component: {fileID: 1714622261}
   - component: {fileID: 1714622260}
+  - component: {fileID: 1714622263}
   m_Layer: 5
   m_Name: Exit_btn
   m_TagString: Untagged
@@ -1586,7 +1674,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1714622261}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1714622263}
+        m_TargetAssemblyTypeName: ButtonSFX, Assembly-CSharp
+        m_MethodName: PlayClickSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1714622261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1625,6 +1725,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1714622258}
   m_CullTransparentMesh: 1
+--- !u!114 &1714622263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714622258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d65459365aac9d4b8635522ff626dd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonClickClip: {fileID: 8300000, guid: bc1e31876c6929644ad6a045ee791ee3, type: 3}
 --- !u!1 &1794337960
 GameObject:
   m_ObjectHideFlags: 0
@@ -1910,7 +2023,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1864356718}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 497577792}
+        m_TargetAssemblyTypeName: SceneTransition, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 2.1_LevelSelector
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1864356720}
+        m_TargetAssemblyTypeName: ButtonSFX, Assembly-CSharp
+        m_MethodName: PlayClickSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1864356718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1958,26 +2095,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1864356715}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d65459365aac9d4b8635522ff626dd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 497577792}
-          m_TargetAssemblyTypeName: SceneTransition, Assembly-CSharp
-          m_MethodName: LoadScene
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 2.1_LevelSelector
-            m_BoolArgument: 0
-          m_CallState: 2
+  buttonClickClip: {fileID: 8300000, guid: 7f0d67b0e12145b46be9d67d1203f8fc, type: 3}
 --- !u!1 &1907282997
 GameObject:
   m_ObjectHideFlags: 0
@@ -2158,8 +2279,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Do you want to quit the game?
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 799967f9dbd5e8242863f56c929b5c10, type: 2}
+  m_sharedMaterial: {fileID: 5336843525799006947, guid: 799967f9dbd5e8242863f56c929b5c10, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2241,3 +2362,4 @@ SceneRoots:
   - {fileID: 1794337964}
   - {fileID: 1171095984}
   - {fileID: 6067135}
+  - {fileID: 766386752}

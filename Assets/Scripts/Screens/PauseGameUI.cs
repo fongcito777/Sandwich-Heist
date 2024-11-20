@@ -16,6 +16,10 @@ public class PauseGameUI : MonoBehaviour
     public string currentSceneName; // Nombre de la escena actual (opcional, puede obtenerse automáticamente)
     public string menuSceneName; // Nombre de la escena del menú principal
 
+    [Header("Audio Clips")]
+    public AudioClip levelMusic; // Música del nivel
+    public AudioClip pauseMusic; // Música del menú de pausa
+
     void Start()
     {
         // Asigna automáticamente el nombre de la escena actual si no se especifica
@@ -34,8 +38,14 @@ public class PauseGameUI : MonoBehaviour
 
     void PauseGame()
     {
+        // Pausar la música del nivel y reproducir la música del menú de pausa
+        AudioManager.Instance.PauseMusic(); // Pausa la música actual
+        AudioManager.Instance.PlayMusic(pauseMusic, true); // Reproduce la música de pausa desde el principio
+
         Time.timeScale = 0; // Pausa el juego
         pausePanel.SetActive(true); // Muestra el panel de pausa
+
+      
     }
 
     IEnumerator ResumeGame()
@@ -50,7 +60,13 @@ public class PauseGameUI : MonoBehaviour
 
         countdownText.text = ""; // Limpia el texto de la cuenta regresiva
         countdownText.gameObject.SetActive(false);
+
+        // Reanudar la música del nivel donde se había quedado
+        AudioManager.Instance.PauseMusic(); // Detenemos la música de pausa
+        AudioManager.Instance.PlayMusic(levelMusic, false);
+
         Time.timeScale = 1; // Reanuda el juego
+        
     }
 
     void RetryLevel()
