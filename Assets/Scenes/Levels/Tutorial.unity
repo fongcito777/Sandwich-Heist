@@ -4808,7 +4808,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.358, y: 0.38327876}
   m_AnchorMax: {x: 0.6767095, y: 0.6545192}
-  m_AnchoredPosition: {x: -0.03302002, y: -1.3679962}
+  m_AnchoredPosition: {x: -0.03302002, y: -1.367981}
   m_SizeDelta: {x: 383.40002, y: 188.51001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1047442751
@@ -8783,6 +8783,26 @@ PrefabInstance:
       propertyPath: retryBtn_GameOver
       value: 
       objectReference: {fileID: 1856057453}
+    - target: {fileID: 3086554855690989120, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1084321908, guid: d3bc672aa0f712f44bd8dabfc063f3fc, type: 3}
+    - target: {fileID: 3086554855690989120, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3086554855690989120, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3086554855690989120, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3086554855690989120, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4390286529106728399, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
       propertyPath: speed
       value: 5

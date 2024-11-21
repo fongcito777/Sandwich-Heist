@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3281b2e8fb2ba65419d3ce9fc0d1fb21
+guid: 7eaf27e59e4d3ef4f80ebd36e35a90e3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1020
+  spritePixelsToUnits: 1000
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -93,11 +93,50 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RunDown_Spritesheet_0
+      name: RunRight_Spritesheet_Finished_0
       rect:
         serializedVersion: 2
         x: 0
@@ -105,20 +144,20 @@ TextureImporter:
         width: 1020
         height: 1020
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 174b2cfe1e01a6b42820c895b6c0488b
-      internalID: 1103478717
+      spriteID: 0c9f2da9a416fbd4fa8f8e1f75dfc7fc
+      internalID: 939009054
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RunDown_Spritesheet_1
+      name: RunRight_Spritesheet_Finished_1
       rect:
         serializedVersion: 2
         x: 1020
@@ -126,20 +165,20 @@ TextureImporter:
         width: 1020
         height: 1020
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9b865dfe5627244892912cf4925972f
-      internalID: 1661395198
+      spriteID: cb1ba9b0e8306f74bb68b7437f57d5c0
+      internalID: 1535352922
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RunDown_Spritesheet_2
+      name: RunRight_Spritesheet_Finished_2
       rect:
         serializedVersion: 2
         x: 2040
@@ -147,20 +186,20 @@ TextureImporter:
         width: 1020
         height: 1020
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ff80a53465098f40b6832b79ef228de
-      internalID: 1386215705
+      spriteID: 9e57a60444b158748a783221bd4c4cff
+      internalID: 561192746
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RunDown_Spritesheet_3
+      name: RunRight_Spritesheet_Finished_3
       rect:
         serializedVersion: 2
         x: 3060
@@ -168,20 +207,20 @@ TextureImporter:
         width: 1020
         height: 1020
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb026050f299c6944bffbd888d26029e
-      internalID: 498137888
+      spriteID: 0313de30c82d2b7428ba4ef80ca8ff1a
+      internalID: -645460426
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RunDown_Spritesheet_4
+      name: RunRight_Spritesheet_Finished_4
       rect:
         serializedVersion: 2
         x: 0
@@ -189,20 +228,20 @@ TextureImporter:
         width: 1020
         height: 1020
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 944e0879b9d5c5d45a7cc5bcd08612a0
-      internalID: -2053151654
+      spriteID: 086325ec41383b5488b5073c8e7d2b35
+      internalID: -1340692876
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RunDown_Spritesheet_5
+      name: RunRight_Spritesheet_Finished_5
       rect:
         serializedVersion: 2
         x: 1020
@@ -210,20 +249,20 @@ TextureImporter:
         width: 1020
         height: 1020
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 579e362ed43f82842a75ead29f186998
-      internalID: -1208557777
+      spriteID: 16e7e466a58d83b4d9340f43a49d526f
+      internalID: -1082952556
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RunDown_Spritesheet_6
+      name: RunRight_Spritesheet_Finished_6
       rect:
         serializedVersion: 2
         x: 2040
@@ -231,20 +270,20 @@ TextureImporter:
         width: 1020
         height: 1020
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0674c4a371ea09046b8ab3cfe00f67b5
-      internalID: -316438249
+      spriteID: 5d770415cd4bd5d4a851088aad550427
+      internalID: -617728611
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RunDown_Spritesheet_7
+      name: RunRight_Spritesheet_Finished_7
       rect:
         serializedVersion: 2
         x: 3060
@@ -252,14 +291,14 @@ TextureImporter:
         width: 1020
         height: 1020
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8c6cfad38cad85c4d903ee39ef31ab96
-      internalID: -2003814745
+      spriteID: 263b67abe7fd41f4cb5925aaf4cb24dc
+      internalID: 1388168231
       vertices: []
       indices: 
       edges: []
@@ -275,14 +314,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      RunDown_Spritesheet_0: 1103478717
-      RunDown_Spritesheet_1: 1661395198
-      RunDown_Spritesheet_2: 1386215705
-      RunDown_Spritesheet_3: 498137888
-      RunDown_Spritesheet_4: -2053151654
-      RunDown_Spritesheet_5: -1208557777
-      RunDown_Spritesheet_6: -316438249
-      RunDown_Spritesheet_7: -2003814745
+      RunRight_Spritesheet_Finished_0: 939009054
+      RunRight_Spritesheet_Finished_1: 1535352922
+      RunRight_Spritesheet_Finished_2: 561192746
+      RunRight_Spritesheet_Finished_3: -645460426
+      RunRight_Spritesheet_Finished_4: -1340692876
+      RunRight_Spritesheet_Finished_5: -1082952556
+      RunRight_Spritesheet_Finished_6: -617728611
+      RunRight_Spritesheet_Finished_7: 1388168231
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
