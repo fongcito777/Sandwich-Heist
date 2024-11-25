@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
         _mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
     
+
+
+
     void Update()
     {
     }
