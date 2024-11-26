@@ -1,9 +1,6 @@
-using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -14,6 +11,7 @@ public class SpiceManager : MonoBehaviour
     [SerializeField] private TileBase tileToPaint;
     private Vector3Int previousTilePosition;
     private BoxCollider2D _bc;
+    private bool _isTouchingKetchup;
     
     // UI
     public int ketchupCount = 0;
@@ -30,14 +28,14 @@ public class SpiceManager : MonoBehaviour
     public Button retryBtn_GameOver;
 
     [Header("Scene Names")]
-    public string currentSceneName; // Nombre de la escena actual (opcional, puede obtenerse automáticamente)
-    public string menuSceneName; // Nombre de la escena del menú principal
+    public string currentSceneName; // Nombre de la escena actual (opcional, puede obtenerse automï¿½ticamente)
+    public string menuSceneName; // Nombre de la escena del menï¿½ principal
 
     private void Start()
     {
         _bc = GetComponent<BoxCollider2D>();
 
-        // Asigna automáticamente el nombre de la escena actual si no se especifica
+        // Asigna automï¿½ticamente el nombre de la escena actual si no se especifica
         if (string.IsNullOrEmpty(currentSceneName))
         {
             currentSceneName = SceneManager.GetActiveScene().name;
@@ -74,9 +72,12 @@ public class SpiceManager : MonoBehaviour
         {
             if (ketchupCount > 0)
             {
-                targetTilemap.SetTile(currentTilePosition, tileToPaint);
-                previousTilePosition = currentTilePosition;
-                ketchupCount--;
+                if (!_isTouchingKetchup)
+                {
+                    targetTilemap.SetTile(currentTilePosition, tileToPaint);
+                    previousTilePosition = currentTilePosition;
+                    ketchupCount--;
+                }
             }
         }
     }
@@ -98,6 +99,8 @@ public class SpiceManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.CompareTag("Ketchup")) _isTouchingKetchup = true;
+        
         if (other.gameObject.CompareTag("End"))
         {
             float floorCount = CountTiles(GameObject.FindGameObjectWithTag("Floor").GetComponent<Tilemap>());
@@ -133,6 +136,11 @@ public class SpiceManager : MonoBehaviour
 
         }
     }
+    
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Ketchup")) _isTouchingKetchup = false;
+    }
 
     void RetryLevel()
     {
@@ -143,7 +151,7 @@ public class SpiceManager : MonoBehaviour
     void QuitToMenu()
     {
         Time.timeScale = 1; // Restaura el tiempo antes de cambiar de escena
-        SceneManager.LoadScene(menuSceneName); // Carga la escena del menú principal
+        SceneManager.LoadScene(menuSceneName); // Carga la escena del menï¿½ principal
     }
 
 
