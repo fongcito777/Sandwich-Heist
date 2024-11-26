@@ -32,7 +32,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Screens/2.3_Credits.unity
     guid: 97f8296c004bf0444b1eaaed59d856a5
-  - enabled: 1
-    path: Assets/Scenes/Screens/3.0_PauseMenu.unity
-    guid: 0ddadda592f9c4840be48d8ba1af76f2
   m_configObjects: {}
