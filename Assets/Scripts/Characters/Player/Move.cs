@@ -113,7 +113,8 @@ public class Move : MonoBehaviour
     {
         if (_isMoving)
         {
-            Vector2 newPosition = Vector2.MoveTowards(_rb.position, _targetPosition, speed * Time.fixedDeltaTime);
+            Vector2 newPosition = Vector2.MoveTowards(_rb.position, _targetPosition,
+                                                speed * Time.fixedDeltaTime);
             _rb.MovePosition(newPosition);
         }
     }
@@ -124,5 +125,15 @@ public class Move : MonoBehaviour
         var scale = _transform.localScale;
         scale.x *= -1;
         _transform.localScale = scale;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log("Collision Enter");
+        if (other.gameObject.CompareTag("Walls"))
+        {
+            Debug.Log("Wall");
+            _isMoving = false;
+        }
     }
 }

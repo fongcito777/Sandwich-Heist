@@ -7,25 +7,25 @@ using UnityEngine.UI;
 public class SpiceManager : MonoBehaviour
 {
     // Tilemap
-    [SerializeField] private Tilemap targetTilemap;
+    [SerializeField] private Tilemap ketchupTilemap;
     [SerializeField] private TileBase tileToPaint;
-    private Vector3Int previousTilePosition;
+    private Vector3Int _previousTilePosition;
     private BoxCollider2D _bc;
     private bool _isTouchingKetchup;
     
     // UI
     public int ketchupCount = 0;
-    [SerializeField] private TextMeshProUGUI _ketchupText;
-    [SerializeField] private GameObject _ui;
-    [SerializeField] private GameObject _spices;
-    [SerializeField] private GameObject _endUi;
-    [SerializeField] private GameObject _gameOverUi;
+    [SerializeField] private TextMeshProUGUI ketchupText;
+    [SerializeField] private GameObject ui;
+    [SerializeField] private GameObject spices;
+    [SerializeField] private GameObject endUi;
+    [SerializeField] private GameObject gameOverUi;
     [SerializeField] private TextMeshProUGUI rankText;
 
-    public Button continueBtn_End;
-    public Button retryBtn_End;
-    public Button quitBtn_GameOver;
-    public Button retryBtn_GameOver;
+    [SerializeField] private Button continueBtnEnd;
+    [SerializeField] private Button retryBtnEnd;
+    [SerializeField] private Button quitBtnGameOver;
+    [SerializeField] private Button retryBtnGameOver;
 
     [Header("Scene Names")]
     public string currentSceneName; // Nombre de la escena actual (opcional, puede obtenerse autom�ticamente)
@@ -42,40 +42,40 @@ public class SpiceManager : MonoBehaviour
         }
 
         // Ensure these GameObjects are assigned in the Inspector
-        if (_ketchupText == null || _spices == null || _ui == null || _endUi == null || _gameOverUi == null)
+        if (ketchupText == null || spices == null || ui == null || endUi == null || gameOverUi == null)
         {
             Debug.LogError("One or more UI elements are not assigned in the Inspector.");
             return;
         }
         
-        _spices.SetActive(true);
-        _endUi.SetActive(false);
-        _gameOverUi.SetActive(false);
+        spices.SetActive(true);
+        endUi.SetActive(false);
+        gameOverUi.SetActive(false);
 
-        continueBtn_End.onClick.AddListener(QuitToMenu);
-        retryBtn_End.onClick.AddListener(RetryLevel);
+        continueBtnEnd.onClick.AddListener(QuitToMenu);
+        retryBtnEnd.onClick.AddListener(RetryLevel);
 
-        quitBtn_GameOver.onClick.AddListener(QuitToMenu);
-        retryBtn_GameOver.onClick.AddListener(RetryLevel);
+        quitBtnGameOver.onClick.AddListener(QuitToMenu);
+        retryBtnGameOver.onClick.AddListener(RetryLevel);
     }
     
     private void Update()
     {
         // UI
-        _ketchupText.text = "KETCHUP: " + ketchupCount.ToString();
+        ketchupText.text = "KETCHUP: " + ketchupCount.ToString();
         
         // Get the current tile position
-        var currentTilePosition = targetTilemap.WorldToCell(transform.position);
+        var currentTilePosition = ketchupTilemap.WorldToCell(transform.position);
         
         // Only spurt if we've moved to a new tile
-        if (currentTilePosition != previousTilePosition)
+        if (currentTilePosition != _previousTilePosition)
         {
             if (ketchupCount > 0)
             {
                 if (!_isTouchingKetchup)
                 {
-                    targetTilemap.SetTile(currentTilePosition, tileToPaint);
-                    previousTilePosition = currentTilePosition;
+                    ketchupTilemap.SetTile(currentTilePosition, tileToPaint);
+                    _previousTilePosition = currentTilePosition;
                     ketchupCount--;
                 }
             }
@@ -92,7 +92,7 @@ public class SpiceManager : MonoBehaviour
 
         if (other.gameObject.CompareTag("Police"))
         {
-            _gameOverUi.SetActive(true); // Activa el nuevo panel de Game Over
+            gameOverUi.SetActive(true); // Activa el nuevo panel de Game Over
             Time.timeScale = 0; // Pausa el juego
         }
     }
@@ -108,9 +108,9 @@ public class SpiceManager : MonoBehaviour
             var result = (ketchupTotal / floorCount) * 100;
             Debug.Log(result);
             
-            _spices.SetActive(false);
-            _ui.SetActive(true);
-            _endUi.SetActive(true);
+            spices.SetActive(false);
+            ui.SetActive(true);
+            endUi.SetActive(true);
 
             if (result < 60)
             {
