@@ -2926,19 +2926,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e98db975af99f04892a7fd396ea4008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTilemap: {fileID: 0}
+  ketchupTilemap: {fileID: 0}
   tileToPaint: {fileID: 11400000, guid: 1d2331bf04faaa84789f926aced8fbdd, type: 2}
   ketchupCount: 0
-  _ketchupText: {fileID: 8652267604113053281}
-  _ui: {fileID: 4803945248222400611}
-  _spices: {fileID: 78689484856447832}
-  _endUi: {fileID: 6191927183328612185}
-  _gameOverUi: {fileID: 7836590190607580585}
+  ketchupText: {fileID: 8652267604113053281}
+  ui: {fileID: 0}
+  spices: {fileID: 0}
+  endUi: {fileID: 0}
+  gameOverUi: {fileID: 0}
   rankText: {fileID: 8805819653259981773}
-  continueBtn_End: {fileID: 1555856070174398898}
-  retryBtn_End: {fileID: 1519503967040970883}
-  quitBtn_GameOver: {fileID: 6490559111051465693}
-  retryBtn_GameOver: {fileID: 99731005191346249}
+  continueBtnEnd: {fileID: 0}
+  retryBtnEnd: {fileID: 0}
+  quitBtnGameOver: {fileID: 0}
+  retryBtnGameOver: {fileID: 0}
   currentSceneName: Tutorial
   menuSceneName: 2.0_MainMenu
 --- !u!1 &8670940282205436791
