@@ -1,37 +1,47 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class PoliceAI : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform player;
-    private Vector3 startingPosition;
-    private Rigidbody2D rb;
+    [SerializeField] Animator _animator;
+    private Vector3 _startingPosition;
+    private Rigidbody2D _rb;
     
     [Header("Movement")]
     [SerializeField] private float normalSpeed = 5f;
     [SerializeField] private float slowedSpeed = 2.5f;
-    private float currentSpeed;
-    private bool isSlowed = false;
+    private float _currentSpeed;
+    private bool _isSlowed = false;
     
     [Header("Vision Settings")]
     [SerializeField] private float detectionRange = 1f;
     [SerializeField] private float losePlayerRange = 3f;
-    
+
+    [Header("Chase Settings")]
+    [SerializeField] private float chaseDelay = 0.5f; //Modify delay for chasing
+    private bool _isChaseDelayActive = false;
+
     private enum PoliceState
     {
         Idle,
         Chasing,
-        Returning
+        Returning,
+        Noticed
     }
     
-    private PoliceState currentState = PoliceState.Idle;
+    private PoliceState currentState;
     
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        startingPosition = transform.position;
-        currentSpeed = normalSpeed;
+        currentState = PoliceState.Idle;
+        
+        _rb = GetComponent<Rigidbody2D>();
+        //_animator = GetComponent<Animator>();
+        
+        _startingPosition = transform.position;
+        _currentSpeed = normalSpeed;
         
         if (player == null)
         {
@@ -41,6 +51,15 @@ public class PoliceAI : MonoBehaviour
                 Debug.LogError("Player not found! Make sure the player has the 'Player' tag.");
             }
         }
+        
+        if (_animator == null)
+        {
+            _animator = GetComponent<Animator>();
+            if (_animator == null)
+            {
+                Debug.LogError("Animator not found! Make sure the _animator is attached to the same GameObject.");
+            }
+        }
     }
     
     private void OnTriggerEnter2D(Collider2D other)
@@ -48,8 +67,8 @@ public class PoliceAI : MonoBehaviour
         // Check if we entered a slow tile
         if (other.CompareTag("Ketchup"))
         {
-            isSlowed = true;
-            currentSpeed = slowedSpeed;
+            _isSlowed = true;
+            _currentSpeed = slowedSpeed;
         }
     }
     
@@ -58,8 +77,8 @@ public class PoliceAI : MonoBehaviour
         // Check if we exited a slow tile
         if (other.CompareTag("Ketchup"))
         {
-            isSlowed = false;
-            currentSpeed = normalSpeed;
+            _isSlowed = false;
+            _currentSpeed = normalSpeed;
         }
     }
     
@@ -75,26 +94,83 @@ public class PoliceAI : MonoBehaviour
         switch (currentState)
         {
             case PoliceState.Idle:
+                _animator.SetBool("Idle", true);
+                _animator.SetBool("Chasing", false);
+                _animator.SetBool("Returning", false);
+                _animator.SetBool("Noticed", false);
                 break;
                 
             case PoliceState.Chasing:
+                _animator.SetBool("Idle", false);
+                _animator.SetBool("Chasing", true);
+                _animator.SetBool("Returning", false);
+                _animator.SetBool("Noticed", false);
                 ChasePlayer();
                 break;
                 
             case PoliceState.Returning:
+                _animator.SetBool("Idle", false);
+                _animator.SetBool("Chasing", false);
+                _animator.SetBool("Returning", true);
+                _animator.SetBool("Noticed", false);
                 ReturnToStart();
+                break;
+            
+            case PoliceState.Noticed:
+                _animator.SetBool("Idle", false);
+                _animator.SetBool("Chasing", false);
+                _animator.SetBool("Returning", false);
+                _animator.SetBool("Noticed", true);
                 break;
         }
     }
-    
+
     private bool CheckForPlayer()
     {
         if (player == null) return false;
-        
+
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        return distanceToPlayer <= detectionRange;
+
+        if (distanceToPlayer <= detectionRange)
+        {
+            Vector2 directionToPlayer = (player.position - transform.position).normalized;
+
+            // Configurar el LayerMask para ignorar capas innecesarias
+            LayerMask layerMask = LayerMask.GetMask("Player", "Walls");
+
+            // Lanzar el Raycast
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, detectionRange, layerMask);
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.CompareTag("Player"))
+                {
+                    if (!_isChaseDelayActive)
+                    {
+                        StartCoroutine(StartChaseAfterDelay());
+                    }
+                    return _isChaseDelayActive == false;
+                }
+            }
+        }
+
+        return false;
     }
-    
+
+    private IEnumerator StartChaseAfterDelay()
+    {
+        _isChaseDelayActive = true;
+
+        currentState = PoliceState.Noticed;
+        
+        yield return new WaitForSeconds(chaseDelay);
+        
+        currentState = PoliceState.Chasing;
+
+        _isChaseDelayActive = false;
+    }
+
+
     private Vector2 GetNonDiagonalDirection(Vector2 targetPosition)
     {
         Vector2 direction = Vector2.zero;
@@ -122,28 +198,37 @@ public class PoliceAI : MonoBehaviour
         if (distanceToPlayer > losePlayerRange)
         {
             currentState = PoliceState.Returning;
-            rb.velocity = Vector2.zero;
+            _rb.velocity = Vector2.zero;
             return;
         }
         
         Vector2 moveDirection = GetNonDiagonalDirection(player.position);
-        rb.velocity = moveDirection * currentSpeed;
+        _rb.velocity = moveDirection * _currentSpeed;
+
+        // Pass direction to _animator
+        _animator.SetFloat("Horizontal", moveDirection.x);
+        _animator.SetFloat("Vertical", moveDirection.y);
     }
     
     private void ReturnToStart()
     {
-        float distanceToStart = Vector2.Distance(transform.position, startingPosition);
+        float distanceToStart = Vector2.Distance(transform.position, _startingPosition);
         
         if (distanceToStart < 0.1f)
         {
-            transform.position = startingPosition;
-            rb.velocity = Vector2.zero;
+            transform.position = _startingPosition;
+            _rb.velocity = Vector2.zero;
+            
             currentState = PoliceState.Idle;
             return;
         }
         
-        Vector2 moveDirection = GetNonDiagonalDirection(startingPosition);
-        rb.velocity = moveDirection * currentSpeed;
+        Vector2 moveDirection = GetNonDiagonalDirection(_startingPosition);
+        _rb.velocity = moveDirection * _currentSpeed;
+
+        // Pass direction to _animator
+        _animator.SetFloat("Horizontal", moveDirection.x);
+        _animator.SetFloat("Vertical", moveDirection.y);
     }
     
     // Dev: Visual representation of movement direction and speed
@@ -158,10 +243,10 @@ public class PoliceAI : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, losePlayerRange);
         
         // Current movement direction
-        if (Application.isPlaying && rb != null && rb.velocity != Vector2.zero)
+        if (Application.isPlaying && _rb != null && _rb.velocity != Vector2.zero)
         {
-            Gizmos.color = isSlowed ? Color.cyan : Color.blue;
-            Gizmos.DrawLine(transform.position, transform.position + (Vector3)rb.velocity.normalized);
+            Gizmos.color = _isSlowed ? Color.cyan : Color.blue;
+            Gizmos.DrawLine(transform.position, transform.position + (Vector3)_rb.velocity.normalized);
         }
     }
 }
