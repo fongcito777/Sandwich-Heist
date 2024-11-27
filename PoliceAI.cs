@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Collections;
 
 public class PoliceAI : MonoBehaviour
 {
@@ -18,7 +19,11 @@ public class PoliceAI : MonoBehaviour
     [Header("Vision Settings")]
     [SerializeField] private float detectionRange = 1f;
     [SerializeField] private float losePlayerRange = 3f;
-    
+
+    [Header("Chase Settings")]
+    [SerializeField] private float chaseDelay = 0.1f; //Modify delay for chasing
+    private bool isChaseDelayActive = false;
+
     private enum PoliceState
     {
         Idle,
@@ -110,12 +115,26 @@ public class PoliceAI : MonoBehaviour
 
                 if (hit.collider.CompareTag("Player"))
                 {
-                    return true;
+                    if (!isChaseDelayActive)
+                    {
+                        StartCoroutine(StartChaseAfterDelay());
+                    }
+                    return isChaseDelayActive == false;
                 }
             }
         }
 
         return false;
+    }
+
+    private IEnumerator StartChaseAfterDelay()
+    {
+        isChaseDelayActive = true;
+
+        yield return new WaitForSeconds(chaseDelay);
+        currentState = PoliceState.Chasing;
+
+        isChaseDelayActive = false;
     }
 
 
