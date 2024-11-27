@@ -15,7 +15,10 @@ public class SpiceManager : MonoBehaviour
     
     // UI
     public int ketchupCount = 0;
-    [SerializeField] private TextMeshProUGUI ketchupText;
+    [SerializeField] private Image ketchupImage; // La imagen del tomate
+    [SerializeField] private int maxKetchup = 300; // Valor máximo de Ketchup
+
+    //[SerializeField] private TextMeshProUGUI ketchupText;
     [SerializeField] private GameObject ui;
     [SerializeField] private GameObject spices;
     [SerializeField] private GameObject endUi;
@@ -35,14 +38,14 @@ public class SpiceManager : MonoBehaviour
     {
         _bc = GetComponent<BoxCollider2D>();
 
-        // Asigna autom�ticamente el nombre de la escena actual si no se especifica
+        // Asigna automáticamente el nombre de la escena actual si no se especifica
         if (string.IsNullOrEmpty(currentSceneName))
         {
             currentSceneName = SceneManager.GetActiveScene().name;
         }
 
         // Ensure these GameObjects are assigned in the Inspector
-        if (ketchupText == null || spices == null || ui == null || endUi == null || gameOverUi == null)
+        if (/*ketchupText == null || */spices == null || ui == null || endUi == null || gameOverUi == null)
         {
             Debug.LogError("One or more UI elements are not assigned in the Inspector.");
             return;
@@ -62,8 +65,23 @@ public class SpiceManager : MonoBehaviour
     private void Update()
     {
         // UI
-        ketchupText.text = "KETCHUP: " + ketchupCount.ToString();
-        
+        //ketchupText.text = "KETCHUP: " + ketchupCount.ToString();
+
+        // Actualiza la imagen del tomate
+        float fillAmount = (float)ketchupCount / maxKetchup;
+        ketchupImage.fillAmount = Mathf.Clamp01(fillAmount);
+
+        // Cambia el color del tomate dependiendo de si está vacío o lleno
+        if (fillAmount > 0)
+        {
+            ketchupImage.color = Color.white; // Tomate lleno
+        }
+        else
+        {
+            ketchupImage.color = Color.white; // Tomate vacío
+        }
+
+
         // Get the current tile position
         var currentTilePosition = ketchupTilemap.WorldToCell(transform.position);
         
@@ -86,7 +104,7 @@ public class SpiceManager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Tomato"))
         {
-            ketchupCount += 100;
+            ketchupCount += 80;
             Destroy(other.gameObject);
         }
 
