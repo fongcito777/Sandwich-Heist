@@ -1,3 +1,7 @@
+/*
+ * TODO: Fix stuck on collisions
+ */
+
 using System.Collections;
 using UnityEngine;
 
