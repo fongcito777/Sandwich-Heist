@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 70091966}
   - component: {fileID: 70091965}
   - component: {fileID: 70091964}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Resume_btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 75095004}
   - component: {fileID: 75095006}
   - component: {fileID: 75095005}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Continue_txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -414,7 +414,7 @@ GameObject:
   - component: {fileID: 139867781}
   - component: {fileID: 139867783}
   - component: {fileID: 139867782}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Countdown_txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -550,7 +550,7 @@ GameObject:
   - component: {fileID: 167640186}
   - component: {fileID: 167640185}
   - component: {fileID: 167640184}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Retry_btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -731,7 +731,7 @@ GameObject:
   - component: {fileID: 292303287}
   - component: {fileID: 292303286}
   - component: {fileID: 292303285}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -863,7 +863,7 @@ GameObject:
   - component: {fileID: 295521234}
   - component: {fileID: 295521233}
   - component: {fileID: 295521232}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Pause_btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1009,7 +1009,7 @@ GameObject:
   - component: {fileID: 304947533}
   - component: {fileID: 304947532}
   - component: {fileID: 304947531}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Quit_btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1212,6 +1212,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Police (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2818298726062143983, guid: 593e2e4ccff6e48479178b904c641838, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2818298726062143983, guid: 593e2e4ccff6e48479178b904c641838, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4795823675283196229, guid: 593e2e4ccff6e48479178b904c641838, type: 3}
       propertyPath: m_LocalPosition.x
       value: 18.5
@@ -1275,7 +1283,7 @@ GameObject:
   - component: {fileID: 429230587}
   - component: {fileID: 429230586}
   - component: {fileID: 429230585}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Continue_btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1608,7 +1616,7 @@ GameObject:
   - component: {fileID: 498848208}
   - component: {fileID: 498848207}
   - component: {fileID: 498848206}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Retry_btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1793,6 +1801,10 @@ PrefabInstance:
     - target: {fileID: 1781172954683826457, guid: 2d9d1e53cdc245649b24036cc43364f3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179242017011404194, guid: 2d9d1e53cdc245649b24036cc43364f3, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4448693787904542328, guid: 2d9d1e53cdc245649b24036cc43364f3, type: 3}
       propertyPath: m_Size.x
@@ -22753,6 +22765,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1383615558}
     m_Modifications:
+    - target: {fileID: 269496376019473131, guid: 593e2e4ccff6e48479178b904c641838, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1342746738}
     - target: {fileID: 2818298726062143983, guid: 593e2e4ccff6e48479178b904c641838, type: 3}
       propertyPath: m_Name
       value: Police
@@ -22818,7 +22834,7 @@ GameObject:
   - component: {fileID: 775956660}
   - component: {fileID: 775956662}
   - component: {fileID: 775956661}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Retry_txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22954,7 +22970,7 @@ GameObject:
   - component: {fileID: 897355792}
   - component: {fileID: 897355791}
   - component: {fileID: 897355790}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Restart_btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23099,7 +23115,7 @@ GameObject:
   - component: {fileID: 905780951}
   - component: {fileID: 905780953}
   - component: {fileID: 905780952}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Restart_txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23301,7 +23317,7 @@ GameObject:
   - component: {fileID: 1034115713}
   - component: {fileID: 1034115715}
   - component: {fileID: 1034115714}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: End_panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23379,7 +23395,7 @@ GameObject:
   - component: {fileID: 1117854916}
   - component: {fileID: 1117854918}
   - component: {fileID: 1117854917}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Quit_txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23609,7 +23625,7 @@ GameObject:
   - component: {fileID: 1273501791}
   - component: {fileID: 1273501790}
   - component: {fileID: 1273501789}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Quit_btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23754,7 +23770,7 @@ GameObject:
   - component: {fileID: 1336464155}
   - component: {fileID: 1336464157}
   - component: {fileID: 1336464156}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: TomatoeFull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23948,7 +23964,15 @@ PrefabInstance:
       objectReference: {fileID: 167640185}
     - target: {fileID: 4390286529106728399, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4390286529106728399, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: wallLayer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 4814446774601740904, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4978739253251296922, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23990,9 +24014,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7034368847471010002, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 8297421125773578236, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8297421125773578236, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -24023,13 +24055,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1342746727}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a46fff56347179e41a3872eee82fb8b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 8
   gridSize: 1
+--- !u!4 &1342746738 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4978739253251296922, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+  m_PrefabInstance: {fileID: 1342746725}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1383615557
 GameObject:
   m_ObjectHideFlags: 0
@@ -24039,7 +24076,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1383615558}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24072,7 +24109,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1416180497}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: GameOverUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24110,7 +24147,7 @@ GameObject:
   - component: {fileID: 1509634376}
   - component: {fileID: 1509634378}
   - component: {fileID: 1509634377}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Pause_panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24188,7 +24225,7 @@ GameObject:
   - component: {fileID: 1585525133}
   - component: {fileID: 1585525135}
   - component: {fileID: 1585525134}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: TomatoeEmpty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24263,7 +24300,7 @@ GameObject:
   - component: {fileID: 1598607971}
   - component: {fileID: 1598607973}
   - component: {fileID: 1598607972}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: GameOver_panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24428,7 +24465,7 @@ GameObject:
   - component: {fileID: 1900344552}
   - component: {fileID: 1900344554}
   - component: {fileID: 1900344553}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Quit_txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24560,7 +24597,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2001660397}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: EndUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24598,7 +24635,7 @@ GameObject:
   - component: {fileID: 2038237200}
   - component: {fileID: 2038237202}
   - component: {fileID: 2038237201}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: KetchupText
   m_TagString: Spices
   m_Icon: {fileID: 0}
@@ -24732,7 +24769,7 @@ GameObject:
   - component: {fileID: 2068024479}
   - component: {fileID: 2068024481}
   - component: {fileID: 2068024480}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Retry_txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24928,7 +24965,7 @@ GameObject:
   - component: {fileID: 2127937832}
   - component: {fileID: 2127937834}
   - component: {fileID: 2127937833}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Rank_txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25062,7 +25099,7 @@ GameObject:
   - component: {fileID: 2146551141}
   - component: {fileID: 2146551143}
   - component: {fileID: 2146551142}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Resume_txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}

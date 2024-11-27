@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Move : MonoBehaviour
@@ -10,7 +9,6 @@ public class Move : MonoBehaviour
     private Rigidbody2D _rb;
     private Transform _transform;
     private Animator _animator;
-    private bool _facingRight = true;
 
     private Vector2 _targetPosition;
     private Vector2 _lastDirection;
@@ -45,12 +43,6 @@ public class Move : MonoBehaviour
             if (horizontal != 0)
             {
                 newDirection = new Vector2(horizontal, 0);
-
-                // Handle character flipping
-                if ((horizontal > 0 && !_facingRight) || (horizontal < 0 && _facingRight))
-                {
-                    Flip();
-                }
             }
             else if (vertical != 0)
             {
@@ -67,7 +59,7 @@ public class Move : MonoBehaviour
         }
 
         // Update animator parameters
-        _animator.SetFloat("Horizontal", Mathf.Abs(_lastDirection.x));
+        _animator.SetFloat("Horizontal", _lastDirection.x);
         _animator.SetFloat("Vertical", _lastDirection.y);
         _animator.SetFloat("Speed", _isMoving ? speed : 0);
 
@@ -119,20 +111,10 @@ public class Move : MonoBehaviour
         }
     }
 
-    private void Flip()
-    {
-        _facingRight = !_facingRight;
-        var scale = _transform.localScale;
-        scale.x *= -1;
-        _transform.localScale = scale;
-    }
-
     private void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("Collision Enter");
         if (other.gameObject.CompareTag("Walls"))
         {
-            Debug.Log("Wall");
             _isMoving = false;
         }
     }

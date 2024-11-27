@@ -153,10 +153,8 @@ public class SwipeMove : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("Collision Enter");
         if (other.gameObject.CompareTag("Walls"))
         {
-            Debug.Log("Wall");
             _isMoving = false;
         }
     }
