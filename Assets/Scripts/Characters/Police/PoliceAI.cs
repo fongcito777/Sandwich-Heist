@@ -1,5 +1,7 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Collections;
 
 public class PoliceAI : MonoBehaviour
 {
@@ -17,7 +19,11 @@ public class PoliceAI : MonoBehaviour
     [Header("Vision Settings")]
     [SerializeField] private float detectionRange = 1f;
     [SerializeField] private float losePlayerRange = 3f;
-    
+
+    [Header("Chase Settings")]
+    [SerializeField] private float chaseDelay = 0.1f; //Modify delay for chasing
+    private bool isChaseDelayActive = false;
+
     private enum PoliceState
     {
         Idle,
@@ -86,15 +92,52 @@ public class PoliceAI : MonoBehaviour
                 break;
         }
     }
-    
+
     private bool CheckForPlayer()
     {
         if (player == null) return false;
-        
+
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        return distanceToPlayer <= detectionRange;
+
+        if (distanceToPlayer <= detectionRange)
+        {
+            Vector2 directionToPlayer = (player.position - transform.position).normalized;
+
+            // Configurar el LayerMask para ignorar capas innecesarias
+            LayerMask layerMask = LayerMask.GetMask("Player", "Walls");
+
+            // Lanzar el Raycast
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, detectionRange, layerMask);
+
+            if (hit.collider != null)
+            {
+                Debug.Log("Collider Tag: " + hit.collider.tag);
+
+                if (hit.collider.CompareTag("Player"))
+                {
+                    if (!isChaseDelayActive)
+                    {
+                        StartCoroutine(StartChaseAfterDelay());
+                    }
+                    return isChaseDelayActive == false;
+                }
+            }
+        }
+
+        return false;
     }
-    
+
+    private IEnumerator StartChaseAfterDelay()
+    {
+        isChaseDelayActive = true;
+
+        yield return new WaitForSeconds(chaseDelay);
+        currentState = PoliceState.Chasing;
+
+        isChaseDelayActive = false;
+    }
+
+
     private Vector2 GetNonDiagonalDirection(Vector2 targetPosition)
     {
         Vector2 direction = Vector2.zero;
