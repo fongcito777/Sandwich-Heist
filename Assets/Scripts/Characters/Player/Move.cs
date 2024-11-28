@@ -5,7 +5,7 @@ public class Move : MonoBehaviour
     [SerializeField] private float speed = 5f;
     [SerializeField] private float gridSize = 1f;
     [SerializeField] private float inputBufferTime = 0.05f;
-    [SerializeField] private float minSwipeDistance = 30f; // Minimum distance for a swipe to register
+    [SerializeField] private float minSwipeDistance = 30f;
     private const float GRID_OFFSET = 0.5f;
     private const float POSITION_TOLERANCE = 0.01f;
 
@@ -21,8 +21,9 @@ public class Move : MonoBehaviour
     private RaycastHit2D[] _raycastHits = new RaycastHit2D[1];
 
     // Touch input variables
-    private Vector2 _touchStartPosition;
-    private bool _isTouching;
+    private Vector2 _startTouchPosition;
+    private Vector2 _endTouchPosition;
+    private bool _swipeDetected;
 
     // Input buffer variables
     private float _horizontalBufferTimeLeft;
@@ -47,7 +48,6 @@ public class Move : MonoBehaviour
 
     private void Update()
     {
-        // Handle both touch and keyboard input
         HandleTouchInput();
         HandleKeyboardInput();
         
@@ -57,58 +57,50 @@ public class Move : MonoBehaviour
 
     private void HandleTouchInput()
     {
-        // Check for touch input
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
 
-            switch (touch.phase)
+            if (touch.phase == TouchPhase.Began)
             {
-                case TouchPhase.Began:
-                    _touchStartPosition = touch.position;
-                    _isTouching = true;
-                    break;
+                _startTouchPosition = touch.position;
+                _swipeDetected = false;
+            }
+            else if (touch.phase == TouchPhase.Ended && !_swipeDetected)
+            {
+                _endTouchPosition = touch.position;
+                Vector2 swipeDirection = _endTouchPosition - _startTouchPosition;
 
-                case TouchPhase.Ended:
-                    if (_isTouching)
-                    {
-                        ProcessSwipe(touch.position - _touchStartPosition);
-                    }
-                    _isTouching = false;
-                    break;
+                if (swipeDirection.magnitude > minSwipeDistance)
+                {
+                    swipeDirection.Normalize();
+                    ProcessSwipe(swipeDirection);
+                    _swipeDetected = true;
+                }
             }
         }
     }
 
     private void HandleKeyboardInput()
     {
-        // Keep keyboard input for testing in editor
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
         UpdateInputBuffer(horizontal, vertical);
     }
 
-    private void ProcessSwipe(Vector2 swipeDelta)
+    private void ProcessSwipe(Vector2 swipeDirection)
     {
-        // Only process swipe if it's long enough
-        if (swipeDelta.magnitude < minSwipeDistance)
-            return;
-
-        // Determine swipe direction
         float horizontal = 0f;
         float vertical = 0f;
 
-        // Check if swipe is more horizontal or vertical
-        if (Mathf.Abs(swipeDelta.x) > Mathf.Abs(swipeDelta.y))
+        if (Mathf.Abs(swipeDirection.x) > Mathf.Abs(swipeDirection.y))
         {
-            // Horizontal swipe
-            horizontal = swipeDelta.x > 0 ? 1f : -1f;
+            horizontal = swipeDirection.x > 0 ? 1f : -1f;
         }
         else
         {
-            // Vertical swipe
-            vertical = swipeDelta.y > 0 ? 1f : -1f;
+            vertical = swipeDirection.y > 0 ? 1f : -1f;
         }
 
         UpdateInputBuffer(horizontal, vertical);
@@ -116,7 +108,6 @@ public class Move : MonoBehaviour
 
     private void UpdateInputBuffer(float horizontal, float vertical)
     {
-        // Update horizontal buffer
         if (horizontal != 0)
         {
             _bufferedHorizontal = horizontal;
@@ -131,7 +122,6 @@ public class Move : MonoBehaviour
             }
         }
 
-        // Update vertical buffer
         if (vertical != 0)
         {
             _bufferedVertical = vertical;
@@ -147,7 +137,6 @@ public class Move : MonoBehaviour
         }
     }
 
-    // Rest of the original methods remain the same
     private void ProcessMovement()
     {
         bool canChangeDirection = Vector2.Distance(_rb.position, GetNearestGridPosition(_rb.position)) < POSITION_TOLERANCE;
