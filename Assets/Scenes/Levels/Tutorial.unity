@@ -13833,6 +13833,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 511411271}
     - target: {fileID: 351196122174762067, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: rankSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: c91d0e9b666b4364ba5a4afbbc4bb4f0, type: 3}
+    - target: {fileID: 351196122174762067, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: rankASfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 656d38330465d3849b1a71c534ac215e, type: 3}
+    - target: {fileID: 351196122174762067, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: rankBSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 656d38330465d3849b1a71c534ac215e, type: 3}
+    - target: {fileID: 351196122174762067, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: rankCSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: abb70587bfff89e439cea0bc427805e3, type: 3}
+    - target: {fileID: 351196122174762067, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: rankDSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: eee7b1db7bf176c49ae996edca916e07, type: 3}
+    - target: {fileID: 351196122174762067, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
       propertyPath: gameOverUi
       value: 
       objectReference: {fileID: 1342746730}

@@ -30,6 +30,13 @@ public class SpiceManager : MonoBehaviour
     [SerializeField] private Button quitBtnGameOver;
     [SerializeField] private Button retryBtnGameOver;
 
+    [Header("Audio Clips")]
+    [SerializeField] private AudioClip rankSfx; // Sonido para rango S
+    [SerializeField] private AudioClip rankASfx; // Sonido para rango A
+    [SerializeField] private AudioClip rankBSfx; // Sonido para rango B
+    [SerializeField] private AudioClip rankCSfx; // Sonido para rango C
+    [SerializeField] private AudioClip rankDSfx; // Sonido para rango D
+
     [Header("Scene Names")]
     public string currentSceneName; // Nombre de la escena actual (opcional, puede obtenerse autom�ticamente)
     public string menuSceneName; // Nombre de la escena del men� principal
@@ -130,26 +137,40 @@ public class SpiceManager : MonoBehaviour
             ui.SetActive(true);
             endUi.SetActive(true);
 
+            AudioClip sfxToPlay = null;
+
             if (result < 60)
             {
                 rankText.text = "You got rank: D";
+                sfxToPlay = rankDSfx;
             }
             else if (result >= 60 && result < 70)
             {
                 rankText.text = "You got rank: C";
+                sfxToPlay = rankCSfx;
             }
             else if (result >= 70 && result < 80)
             {
                 rankText.text = "You got rank: B";
+                sfxToPlay = rankBSfx;
             }
             else if (result >= 80 && result < 90)
             {
                 rankText.text = "You got rank: A";
+                sfxToPlay = rankASfx;
             }
             else if (result >= 90)
             {
                 rankText.text = "You got rank: S";
+                sfxToPlay = rankSfx;
             }
+
+            // Reproduce el sonido del rango
+            if (AudioManager.Instance != null && sfxToPlay != null)
+            {
+                AudioManager.Instance.PlaySFX(sfxToPlay);
+            }
+
             Time.timeScale = 0; // Pausa el juego
 
         }
