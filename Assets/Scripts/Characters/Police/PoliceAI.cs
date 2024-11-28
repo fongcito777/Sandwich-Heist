@@ -6,6 +6,7 @@ public class PoliceAI : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform player;
     [SerializeField] Animator _animator;
+    [SerializeField] private AudioClip playerDetectedSfx; // sfx del policia cuando detecta al player
     private Vector3 _startingPosition;
     private Rigidbody2D _rb;
     
@@ -126,6 +127,13 @@ public class PoliceAI : MonoBehaviour
     {
         _isChaseDelayActive = true;
         currentState = PoliceState.Noticed;
+
+        // Reproducir el efecto de sonido al notar al jugador
+        if (playerDetectedSfx != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(playerDetectedSfx);
+        }
+
         yield return new WaitForSeconds(chaseDelay);
         currentState = PoliceState.Chasing;
         _isChaseDelayActive = false;

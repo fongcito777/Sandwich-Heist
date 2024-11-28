@@ -14878,13 +14878,33 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 511411271}
     - target: {fileID: 351196122174762067, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: gameOverSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 28a87ccb877c31245a6c5d7a28e91590, type: 3}
+    - target: {fileID: 351196122174762067, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
       propertyPath: tileToPaint
       value: 
       objectReference: {fileID: 11400000, guid: 016f9ae255684a64aa4944d739f9fc87, type: 2}
     - target: {fileID: 351196122174762067, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: paintTileSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: f8e1798320e02044997886670aaf8ebc, type: 3}
+    - target: {fileID: 351196122174762067, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
       propertyPath: ketchupTilemap
       value: 
       objectReference: {fileID: 541076828}
+    - target: {fileID: 351196122174762067, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: collectTomatoSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: c9c1f806475fef74dbc69effe687027b, type: 3}
+    - target: {fileID: 4390286529106728399, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: inputBufferTime
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4390286529106728399, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: minSwipeDistance
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 4978739253251296922, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5
@@ -15131,6 +15151,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1898683596}
+    - target: {fileID: 269496376019473131, guid: 593e2e4ccff6e48479178b904c641838, type: 3}
+      propertyPath: playerDetectedSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 5331f09344f7dcb47b4170f4df47a31b, type: 3}
     - target: {fileID: 2818298726062143983, guid: 593e2e4ccff6e48479178b904c641838, type: 3}
       propertyPath: m_Name
       value: Police

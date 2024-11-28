@@ -36,6 +36,9 @@ public class SpiceManager : MonoBehaviour
     [SerializeField] private AudioClip rankBSfx; // Sonido para rango B
     [SerializeField] private AudioClip rankCSfx; // Sonido para rango C
     [SerializeField] private AudioClip rankDSfx; // Sonido para rango D
+    [SerializeField] private AudioClip gameOverSfx; // Sonido de Game Over
+    [SerializeField] private AudioClip paintTileSfx; // Sonido al pintar un tile
+    [SerializeField] private AudioClip collectTomatoSfx; // Sonido al recolectar tomates
 
     [Header("Scene Names")]
     public string currentSceneName; // Nombre de la escena actual (opcional, puede obtenerse autom�ticamente)
@@ -102,6 +105,12 @@ public class SpiceManager : MonoBehaviour
                     ketchupTilemap.SetTile(currentTilePosition, tileToPaint);
                     _previousTilePosition = currentTilePosition;
                     ketchupCount--;
+
+                    // Reproduce el sonido al pintar un tile
+                    if (AudioManager.Instance != null)
+                    {
+                        AudioManager.Instance.PlaySFX(paintTileSfx);
+                    }
                 }
             }
         }
@@ -113,12 +122,23 @@ public class SpiceManager : MonoBehaviour
         {
             ketchupCount += 80;
             Destroy(other.gameObject);
+
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(collectTomatoSfx);
+            }
         }
 
         if (other.gameObject.CompareTag("Police"))
         {
             gameOverUi.SetActive(true); // Activa el nuevo panel de Game Over
             Time.timeScale = 0; // Pausa el juego
+
+            // Reproduce el sonido de Game Over
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(gameOverSfx);
+            }
         }
     }
 

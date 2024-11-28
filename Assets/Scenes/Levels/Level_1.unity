@@ -1297,6 +1297,10 @@ PrefabInstance:
       propertyPath: chaseDelay
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 269496376019473131, guid: 593e2e4ccff6e48479178b904c641838, type: 3}
+      propertyPath: playerDetectedSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 5331f09344f7dcb47b4170f4df47a31b, type: 3}
     - target: {fileID: 2818298726062143983, guid: 593e2e4ccff6e48479178b904c641838, type: 3}
       propertyPath: m_Name
       value: Police (1)
@@ -24430,6 +24434,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1342746738}
+    - target: {fileID: 269496376019473131, guid: 593e2e4ccff6e48479178b904c641838, type: 3}
+      propertyPath: playerDetectedSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 5331f09344f7dcb47b4170f4df47a31b, type: 3}
     - target: {fileID: 2818298726062143983, guid: 593e2e4ccff6e48479178b904c641838, type: 3}
       propertyPath: m_Name
       value: Police
@@ -25873,6 +25881,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1416180496}
     - target: {fileID: 351196122174762067, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: gameOverSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 28a87ccb877c31245a6c5d7a28e91590, type: 3}
+    - target: {fileID: 351196122174762067, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
       propertyPath: ketchupText
       value: 
       objectReference: {fileID: 2038237201}
@@ -25884,6 +25896,10 @@ PrefabInstance:
       propertyPath: ketchupImage
       value: 
       objectReference: {fileID: 1336464156}
+    - target: {fileID: 351196122174762067, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: paintTileSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: f8e1798320e02044997886670aaf8ebc, type: 3}
     - target: {fileID: 351196122174762067, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
       propertyPath: continueBtnEnd
       value: 
@@ -25897,6 +25913,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1273501790}
     - target: {fileID: 351196122174762067, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: collectTomatoSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: c9c1f806475fef74dbc69effe687027b, type: 3}
+    - target: {fileID: 351196122174762067, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
       propertyPath: currentSceneName
       value: Level_1
       objectReference: {fileID: 0}
@@ -25904,9 +25924,29 @@ PrefabInstance:
       propertyPath: retryBtnGameOver
       value: 
       objectReference: {fileID: 167640185}
+    - target: {fileID: 3230301796810685221, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: messageText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3230301796810685221, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: collectibleImage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3230301796810685221, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: notificationPanel
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4390286529106728399, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4390286529106728399, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: inputBufferTime
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4390286529106728399, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
+      propertyPath: minSwipeDistance
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4390286529106728399, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
       propertyPath: wallLayer.m_Bits
@@ -25968,7 +26008,8 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3230301796810685221, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
     m_RemovedGameObjects:
     - {fileID: 4803945248222400611, guid: cc901db13fd1ed84d97e0d0da6fc7ace, type: 3}
     m_AddedGameObjects:

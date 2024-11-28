@@ -4,8 +4,8 @@ public class Move : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
     [SerializeField] private float gridSize = 1f;
-    [SerializeField] private float inputBufferTime = 0.1f;
-    [SerializeField] private float minSwipeDistance = 50f; // Minimum distance for a swipe to register
+    [SerializeField] private float inputBufferTime = 0.05f;
+    [SerializeField] private float minSwipeDistance = 30f; // Minimum distance for a swipe to register
     private const float GRID_OFFSET = 0.5f;
     private const float POSITION_TOLERANCE = 0.01f;
 
