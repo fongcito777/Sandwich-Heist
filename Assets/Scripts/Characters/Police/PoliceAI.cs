@@ -1,7 +1,3 @@
-/*
- * TODO: Fix stuck on collisions
- */
-
 using System.Collections;
 using UnityEngine;
 
@@ -16,15 +12,19 @@ public class PoliceAI : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float normalSpeed = 5f;
     [SerializeField] private float slowedSpeed = 2.5f;
+    [SerializeField] private float gridSize = 1f;
     private float _currentSpeed;
     private bool _isSlowed = false;
+    private bool _isMoving = false;
+    private Vector2 _targetPosition;
     
     [Header("Vision Settings")]
     [SerializeField] private float detectionRange = 1f;
     [SerializeField] private float losePlayerRange = 3f;
 
     [Header("Chase Settings")]
-    [SerializeField] private float chaseDelay = 0.5f; //Modify delay for chasing
+    [SerializeField] private float chaseDelay = 0.5f;
+    [SerializeField] private LayerMask wallsLayer;
     private bool _isChaseDelayActive = false;
 
     private enum PoliceState
@@ -42,10 +42,9 @@ public class PoliceAI : MonoBehaviour
         currentState = PoliceState.Idle;
         
         _rb = GetComponent<Rigidbody2D>();
-        //_animator = GetComponent<Animator>();
-        
         _startingPosition = transform.position;
         _currentSpeed = normalSpeed;
+        _targetPosition = transform.position;
         
         if (player == null)
         {
@@ -68,7 +67,6 @@ public class PoliceAI : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Check if we entered a slow tile
         if (other.CompareTag("Ketchup"))
         {
             _isSlowed = true;
@@ -78,7 +76,6 @@ public class PoliceAI : MonoBehaviour
     
     private void OnTriggerExit2D(Collider2D other)
     {
-        // Check if we exited a slow tile
         if (other.CompareTag("Ketchup"))
         {
             _isSlowed = false;
@@ -88,45 +85,13 @@ public class PoliceAI : MonoBehaviour
     
     private void Update()
     {
-        // Always check for player first, regardless of current state
         if (currentState != PoliceState.Chasing && CheckForPlayer())
         {
             currentState = PoliceState.Chasing;
         }
-        
-        // Then handle state-specific behavior
-        switch (currentState)
-        {
-            case PoliceState.Idle:
-                _animator.SetBool("Idle", true);
-                _animator.SetBool("Chasing", false);
-                _animator.SetBool("Returning", false);
-                _animator.SetBool("Noticed", false);
-                break;
-                
-            case PoliceState.Chasing:
-                _animator.SetBool("Idle", false);
-                _animator.SetBool("Chasing", true);
-                _animator.SetBool("Returning", false);
-                _animator.SetBool("Noticed", false);
-                ChasePlayer();
-                break;
-                
-            case PoliceState.Returning:
-                _animator.SetBool("Idle", false);
-                _animator.SetBool("Chasing", false);
-                _animator.SetBool("Returning", true);
-                _animator.SetBool("Noticed", false);
-                ReturnToStart();
-                break;
-            
-            case PoliceState.Noticed:
-                _animator.SetBool("Idle", false);
-                _animator.SetBool("Chasing", false);
-                _animator.SetBool("Returning", false);
-                _animator.SetBool("Noticed", true);
-                break;
-        }
+
+        UpdateState();
+        UpdateAnimation();
     }
 
     private bool CheckForPlayer()
@@ -138,11 +103,7 @@ public class PoliceAI : MonoBehaviour
         if (distanceToPlayer <= detectionRange)
         {
             Vector2 directionToPlayer = (player.position - transform.position).normalized;
-
-            // Configurar el LayerMask para ignorar capas innecesarias
             LayerMask layerMask = LayerMask.GetMask("Player", "Walls");
-
-            // Lanzar el Raycast
             RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, detectionRange, layerMask);
 
             if (hit.collider != null)
@@ -164,23 +125,67 @@ public class PoliceAI : MonoBehaviour
     private IEnumerator StartChaseAfterDelay()
     {
         _isChaseDelayActive = true;
-
         currentState = PoliceState.Noticed;
-        
         yield return new WaitForSeconds(chaseDelay);
-        
         currentState = PoliceState.Chasing;
-
         _isChaseDelayActive = false;
     }
 
+    private void UpdateState()
+    {
+        if (_isMoving) return;
+
+        switch (currentState)
+        {
+            case PoliceState.Idle:
+                _rb.velocity = Vector2.zero;
+                break;
+
+            case PoliceState.Chasing:
+                if (player == null) return;
+                
+                float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+                if (distanceToPlayer > losePlayerRange)
+                {
+                    currentState = PoliceState.Returning;
+                    return;
+                }
+                
+                TryMove(player.position);
+                break;
+                
+            case PoliceState.Returning:
+                float distanceToStart = Vector2.Distance(transform.position, _startingPosition);
+                if (distanceToStart < 0.1f)
+                {
+                    transform.position = _startingPosition;
+                    _rb.velocity = Vector2.zero;
+                    currentState = PoliceState.Idle;
+                    return;
+                }
+                
+                TryMove(_startingPosition);
+                break;
+
+            case PoliceState.Noticed:
+                _rb.velocity = Vector2.zero;
+                break;
+        }
+    }
+
+    private void UpdateAnimation()
+    {
+        _animator.SetBool("Idle", currentState == PoliceState.Idle);
+        _animator.SetBool("Chasing", currentState == PoliceState.Chasing);
+        _animator.SetBool("Returning", currentState == PoliceState.Returning);
+        _animator.SetBool("Noticed", currentState == PoliceState.Noticed);
+    }
 
     private Vector2 GetNonDiagonalDirection(Vector2 targetPosition)
     {
         Vector2 direction = Vector2.zero;
         Vector2 difference = targetPosition - (Vector2)transform.position;
         
-        // Move in the direction of the largest difference (horizontal or vertical)
         if (Mathf.Abs(difference.x) > Mathf.Abs(difference.y))
         {
             direction.x = difference.x > 0 ? 1 : -1;
@@ -192,65 +197,95 @@ public class PoliceAI : MonoBehaviour
         
         return direction;
     }
-    
-    private void ChasePlayer()
-    {
-        if (player == null) return;
-        
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        
-        if (distanceToPlayer > losePlayerRange)
-        {
-            currentState = PoliceState.Returning;
-            _rb.velocity = Vector2.zero;
-            return;
-        }
-        
-        Vector2 moveDirection = GetNonDiagonalDirection(player.position);
-        _rb.velocity = moveDirection * _currentSpeed;
 
-        // Pass direction to _animator
-        _animator.SetFloat("Horizontal", moveDirection.x);
-        _animator.SetFloat("Vertical", moveDirection.y);
-    }
-    
-    private void ReturnToStart()
+    private void TryMove(Vector2 destination)
     {
-        float distanceToStart = Vector2.Distance(transform.position, _startingPosition);
+        if (_isMoving) return;
+
+        Vector2 direction = GetNonDiagonalDirection(destination);
+        Vector2 nextPosition = (Vector2)transform.position + direction * gridSize;
         
-        if (distanceToStart < 0.1f)
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, gridSize, wallsLayer);
+        
+        if (hit.collider == null)
         {
-            transform.position = _startingPosition;
-            _rb.velocity = Vector2.zero;
+            StartCoroutine(MoveToNextPosition(nextPosition, direction));
+        }
+        else
+        {
+            Vector2 alternateDirection = GetAlternateDirection(destination, direction);
+            nextPosition = (Vector2)transform.position + alternateDirection * gridSize;
             
-            currentState = PoliceState.Idle;
-            return;
+            hit = Physics2D.Raycast(transform.position, alternateDirection, gridSize, wallsLayer);
+            if (hit.collider == null)
+            {
+                StartCoroutine(MoveToNextPosition(nextPosition, alternateDirection));
+            }
         }
-        
-        Vector2 moveDirection = GetNonDiagonalDirection(_startingPosition);
-        _rb.velocity = moveDirection * _currentSpeed;
+    }
 
-        // Pass direction to _animator
-        _animator.SetFloat("Horizontal", moveDirection.x);
-        _animator.SetFloat("Vertical", moveDirection.y);
+    private Vector2 GetAlternateDirection(Vector2 destination, Vector2 blockedDirection)
+    {
+        Vector2 difference = destination - (Vector2)transform.position;
+        
+        if (blockedDirection.x != 0)
+        {
+            return new Vector2(0, difference.y > 0 ? 1 : -1);
+        }
+        else
+        {
+            return new Vector2(difference.x > 0 ? 1 : -1, 0);
+        }
+    }
+
+    private IEnumerator MoveToNextPosition(Vector2 nextPos, Vector2 direction)
+    {
+        _isMoving = true;
+        _targetPosition = nextPos;
+        _rb.velocity = Vector2.zero;
+        
+        Vector2 startPos = transform.position;
+        float elapsedTime = 0f;
+        float moveTime = gridSize / _currentSpeed;
+
+        while (elapsedTime < moveTime)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / moveTime;
+            transform.position = Vector2.Lerp(startPos, nextPos, t);
+            
+            _animator.SetFloat("Horizontal", direction.x);
+            _animator.SetFloat("Vertical", direction.y);
+            
+            yield return null;
+        }
+
+        transform.position = nextPos;
+        _isMoving = false;
     }
     
-    // Dev: Visual representation of movement direction and speed
     private void OnDrawGizmos()
     {
-        // Detection range
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
         
-        // Lose player range
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, losePlayerRange);
         
-        // Current movement direction
-        if (Application.isPlaying && _rb != null && _rb.velocity != Vector2.zero)
+        if (Application.isPlaying)
         {
-            Gizmos.color = _isSlowed ? Color.cyan : Color.blue;
-            Gizmos.DrawLine(transform.position, transform.position + (Vector3)_rb.velocity.normalized);
+            if (_rb != null && _rb.velocity != Vector2.zero)
+            {
+                Gizmos.color = _isSlowed ? Color.cyan : Color.blue;
+                Gizmos.DrawLine(transform.position, transform.position + (Vector3)_rb.velocity.normalized);
+            }
+            
+            Gizmos.color = Color.cyan;
+            Vector2 gridPos = new Vector2(
+                Mathf.Round(transform.position.x / gridSize) * gridSize,
+                Mathf.Round(transform.position.y / gridSize) * gridSize
+            );
+            Gizmos.DrawWireCube(gridPos, Vector2.one * gridSize);
         }
     }
 }
