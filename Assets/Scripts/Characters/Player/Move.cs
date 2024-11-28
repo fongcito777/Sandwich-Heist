@@ -4,7 +4,8 @@ public class Move : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
     [SerializeField] private float gridSize = 1f;
-    [SerializeField] private float inputBufferTime = 0.1f; // How long to remember the input
+    [SerializeField] private float inputBufferTime = 0.1f;
+    [SerializeField] private float minSwipeDistance = 50f; // Minimum distance for a swipe to register
     private const float GRID_OFFSET = 0.5f;
     private const float POSITION_TOLERANCE = 0.01f;
 
@@ -18,6 +19,10 @@ public class Move : MonoBehaviour
     private bool _isMoving;
     private ContactFilter2D _contactFilter;
     private RaycastHit2D[] _raycastHits = new RaycastHit2D[1];
+
+    // Touch input variables
+    private Vector2 _touchStartPosition;
+    private bool _isTouching;
 
     // Input buffer variables
     private float _horizontalBufferTimeLeft;
@@ -42,17 +47,75 @@ public class Move : MonoBehaviour
 
     private void Update()
     {
-        UpdateInputBuffer();
+        // Handle both touch and keyboard input
+        HandleTouchInput();
+        HandleKeyboardInput();
+        
         ProcessMovement();
         UpdateAnimator();
     }
 
-    private void UpdateInputBuffer()
+    private void HandleTouchInput()
     {
-        // Get current input
+        // Check for touch input
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    _touchStartPosition = touch.position;
+                    _isTouching = true;
+                    break;
+
+                case TouchPhase.Ended:
+                    if (_isTouching)
+                    {
+                        ProcessSwipe(touch.position - _touchStartPosition);
+                    }
+                    _isTouching = false;
+                    break;
+            }
+        }
+    }
+
+    private void HandleKeyboardInput()
+    {
+        // Keep keyboard input for testing in editor
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
+        UpdateInputBuffer(horizontal, vertical);
+    }
+
+    private void ProcessSwipe(Vector2 swipeDelta)
+    {
+        // Only process swipe if it's long enough
+        if (swipeDelta.magnitude < minSwipeDistance)
+            return;
+
+        // Determine swipe direction
+        float horizontal = 0f;
+        float vertical = 0f;
+
+        // Check if swipe is more horizontal or vertical
+        if (Mathf.Abs(swipeDelta.x) > Mathf.Abs(swipeDelta.y))
+        {
+            // Horizontal swipe
+            horizontal = swipeDelta.x > 0 ? 1f : -1f;
+        }
+        else
+        {
+            // Vertical swipe
+            vertical = swipeDelta.y > 0 ? 1f : -1f;
+        }
+
+        UpdateInputBuffer(horizontal, vertical);
+    }
+
+    private void UpdateInputBuffer(float horizontal, float vertical)
+    {
         // Update horizontal buffer
         if (horizontal != 0)
         {
@@ -84,22 +147,20 @@ public class Move : MonoBehaviour
         }
     }
 
+    // Rest of the original methods remain the same
     private void ProcessMovement()
     {
         bool canChangeDirection = Vector2.Distance(_rb.position, GetNearestGridPosition(_rb.position)) < POSITION_TOLERANCE;
 
-        // Check if we can change direction and have buffered input
         if ((_bufferedHorizontal != 0 || _bufferedVertical != 0) && canChangeDirection)
         {
             Vector2 newDirection = Vector2.zero;
 
-            // Try horizontal movement first
             if (_bufferedHorizontal != 0)
             {
                 newDirection = new Vector2(_bufferedHorizontal, 0);
                 if (!CanMoveInDirection(newDirection) && _bufferedVertical != 0)
                 {
-                    // If horizontal movement is blocked and we have vertical input, try that instead
                     newDirection = new Vector2(0, _bufferedVertical);
                 }
             }
@@ -108,21 +169,18 @@ public class Move : MonoBehaviour
                 newDirection = new Vector2(0, _bufferedVertical);
             }
 
-            // Update movement if we can move in the new direction
             if (newDirection != Vector2.zero && CanMoveInDirection(newDirection))
             {
                 _lastDirection = newDirection;
                 _targetPosition = CalculateNextGridPosition(newDirection);
                 _isMoving = true;
 
-                // Snap to grid when changing direction
                 Vector2 currentGridPos = GetNearestGridPosition(_rb.position);
                 if (Vector2.Distance(_rb.position, currentGridPos) < POSITION_TOLERANCE)
                 {
                     _rb.position = currentGridPos;
                 }
 
-                // Clear the used input buffer
                 if (newDirection.x != 0)
                 {
                     _horizontalBufferTimeLeft = 0;
@@ -136,12 +194,10 @@ public class Move : MonoBehaviour
             }
         }
 
-        // Check if reached target position
         if (_isMoving && Vector2.Distance(_rb.position, _targetPosition) < POSITION_TOLERANCE)
         {
             _rb.position = _targetPosition;
 
-            // Set next target position if we can keep moving in the same direction
             if (_lastDirection != Vector2.zero && CanMoveInDirection(_lastDirection))
             {
                 _targetPosition = CalculateNextGridPosition(_lastDirection);

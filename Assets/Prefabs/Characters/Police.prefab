@@ -129,11 +129,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   _animator: {fileID: 5587740065620348635}
-  normalSpeed: 5
-  slowedSpeed: 2.5
-  detectionRange: 3.5
-  losePlayerRange: 3.5
+  normalSpeed: 8
+  slowedSpeed: 6.5
+  gridSize: 1
+  detectionRange: 7
+  losePlayerRange: 7
   chaseDelay: 0.5
+  wallsLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!61 &6310199288490208728
 BoxCollider2D:
   m_ObjectHideFlags: 0
