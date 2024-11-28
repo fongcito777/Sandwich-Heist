@@ -3,24 +3,27 @@ using UnityEngine.Video;
 
 public class CinematicManager : MonoBehaviour
 {
+    [SerializeField] private VideoClip videoClip;  // Reference from Assets/Videos
+    [SerializeField] private string videoFileName;  // Name of file in StreamingAssets
     public VideoPlayer videoPlayer;
-    public AudioSource videoAudioSource; // Audio del video (si está separado)
-    //public AudioClip cinematicAudio; // Música de fondo si es diferente
-
-    public GameObject skipButton; // Botón para saltar la cinemática
+    public AudioSource videoAudioSource;
+    public GameObject skipButton;
 
     void Start()
     {
-        // Pausa cualquier música actual y reproduce el audio del video.
         AudioManager.Instance.StopMusic();
-        // videoAudioSource.clip = cinematicAudio;
         videoAudioSource.Play();
 
-        // Asocia el evento loopPointReached al método EndCinematic
-        videoPlayer.loopPointReached += EndCinematic;
+        #if UNITY_WEBGL && !UNITY_EDITOR
+                    string videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, videoFileName);
+                    videoPlayer.url = videoPath;
+        #else
+                videoPlayer.clip = videoClip;
+        #endif
 
-        // Opcional: Desactivar el botón hasta que el video esté listo.
+        videoPlayer.loopPointReached += EndCinematic;
         skipButton.SetActive(true);
+        videoPlayer.Play();
     }
 
     public void SkipCinematic()
@@ -31,7 +34,6 @@ public class CinematicManager : MonoBehaviour
 
     void EndCinematic(VideoPlayer vp)
     {
-        // Cambia de escena al terminar el video
         UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial");
     }
 }

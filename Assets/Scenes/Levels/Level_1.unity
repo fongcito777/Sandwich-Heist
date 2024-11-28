@@ -1213,7 +1213,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 269496376019473131, guid: 593e2e4ccff6e48479178b904c641838, type: 3}
       propertyPath: chaseDelay
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 269496376019473131, guid: 593e2e4ccff6e48479178b904c641838, type: 3}
       propertyPath: playerDetectedSfx
